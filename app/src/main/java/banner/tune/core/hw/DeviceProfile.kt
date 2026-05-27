@@ -20,7 +20,7 @@ data class DeviceProfile(
     val fanModesSupported: Boolean,
     val rgbSupported: Boolean,
 ) {
-    val totalCores: Int get() = cpuPolicies.sumOf { it.cpus.size }
+    val totalCores: Int get() = cpuPolicies.sumOf { it.cpus.count() }
 }
 
 data class CpuPolicy(
