@@ -28,6 +28,13 @@
     <!-- Persist the active profile across reboot. -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <!-- Read AYANEO's config files at /sdcard/.aya/* (mode 660, group media_rw).
+         Optional: if not granted we fall back to capturing the daemon's
+         broadcasts. Power users can grant this in Settings → Apps → ayatune
+         → Permissions → All files access. -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
     <application
         android:name=".AyaTuneApplication"
         android:allowBackup="false"
