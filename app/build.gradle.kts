@@ -13,8 +13,8 @@ android {
         applicationId = "banner.tune"
         minSdk = 31              // matches AYANEO Settings minSdk; lets us use modern overlay APIs
         targetSdk = 34           // matches the Pocket FIT system image
-        versionCode = 1
-        versionName = "0.0.1"
+        versionCode = 2
+        versionName = "0.0.2"
     }
 
     buildFeatures {

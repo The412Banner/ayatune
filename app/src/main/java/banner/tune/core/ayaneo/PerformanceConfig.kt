@@ -27,21 +27,28 @@ data class ModeConfiguration(
     @SerialName("lastFanMode") val lastFanMode: FanMode = fanMode,
 )
 
+/**
+ * Wire format is `{cpuId, selectedFrequency}` only. The full range
+ * (min/max/available freqs) lives in [banner.tune.core.hw.DeviceProfile]
+ * — it's a UI/clamp concern, not persisted by AYANEO.
+ */
 @Serializable
 data class CPUFrequency(
     @SerialName("cpuId") val cpuId: Int,
-    @SerialName("minFrequency") val minFrequency: Int,
-    @SerialName("maxFrequency") val maxFrequency: Int,
     @SerialName("selectedFrequency") val selectedFrequency: Int,
-    @SerialName("frequencies") val frequencies: List<Int> = emptyList(),
 )
 
+/**
+ * Wire format is `{isFixed, maxFrequency, minFrequency}`. There is no
+ * `selectedFrequency` — when `isFixed`, AYANEO pins both KGSL min and
+ * max to [maxFrequency] (and bumps idle_timer to ~10s); otherwise the
+ * GPU is allowed to roam within `[minFrequency, maxFrequency]`.
+ */
 @Serializable
 data class GPUFrequency(
-    @SerialName("minFrequency") val minFrequency: Long,
-    @SerialName("maxFrequency") val maxFrequency: Long,
-    @SerialName("selectedFrequency") val selectedFrequency: Long,
     @SerialName("isFixed") val isFixed: Boolean,
+    @SerialName("maxFrequency") val maxFrequency: Long,
+    @SerialName("minFrequency") val minFrequency: Long,
 )
 
 @Suppress("EnumEntryName")
