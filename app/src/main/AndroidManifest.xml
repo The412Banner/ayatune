@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Floating overlay (the swipe-from-edge tuner panel). User grants this
+         via Settings → Apps → Special access → Display over other apps. -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- Foreground service for the overlay + per-game watcher. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+
+    <!-- Per-game auto-apply needs to know which app is foreground.
+         Granted in Settings → Apps → Special access → Usage access. -->
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!-- We bind to com.ayaneo.gamewindow/.utils.aidl.AyaAidlService.
+         API 30+ requires QUERIES for outside-app binding. -->
+    <queries>
+        <package android:name="com.ayaneo.gamewindow" />
+        <package android:name="com.ayaneo.settings" />
+    </queries>
+
+    <!-- Wakelock for the overlay service while a profile is active. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Persist the active profile across reboot. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:name=".AyaTuneApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AyaTune"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AyaTune">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>
